@@ -1,0 +1,88 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  background: linear-gradient(135deg, #eef2f7, #dfe7f1);
+  padding: 30px;
+  color: #2c3e50;
+}
+
+h1 { margin-bottom: 20px; }
+
+.topo {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card span { font-size: 13px; color: #7f8c8d; }
+.card strong { font-size: 18px; display: block; }
+.lucro strong { color: #27ae60; }
+.atrasado strong { color: #e74c3c; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th {
+  background: #2c3e50;
+  color: white;
+  padding: 12px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.em-dia { color: #27ae60; font-weight: bold; }
+.atrasado { color: #e74c3c; font-weight: bold; }
+.quitado { color: #7f8c8d; font-weight: bold; }
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.modal-content {
+  background: white;
+  width: 320px;
+  margin: 80px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}

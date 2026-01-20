@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Empréstimos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>📊 Sistema de Empréstimos</h1>
+
+<!-- RESUMO FINANCEIRO -->
+<div class="resumo">
+  <div class="card"><span>Total Emprestado</span><strong id="resumoEmprestado">R$ 0,00</strong></div>
+  <div class="card"><span>Total a Receber</span><strong id="resumoReceber">R$ 0,00</strong></div>
+  <div class="card"><span>Total Recebido</span><strong id="resumoRecebido">R$ 0,00</strong></div>
+  <div class="card lucro"><span>Lucro</span><strong id="resumoLucro">R$ 0,00</strong></div>
+  <div class="card atrasado"><span>Atrasados</span><strong id="resumoAtrasados">0</strong></div>
+</div>
+
+<div class="topo">
+  <button onclick="abrirModalEmprestimo()">➕ Novo Empréstimo</button>
+  <button onclick="setFiltro('todos')">📋 Todos</button>
+  <button onclick="setFiltro('atrasado')">⏰ Atrasados</button>
+  <button onclick="setFiltro('emdia')">✅ Em dia</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Telefone</th>
+      <th>Emprestado</th>
+      <th>Total a Receber</th>
+      <th>Recebido</th>
+      <th>Lucro</th>
+      <th>Vencimento</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody id="tabelaEmprestimos"></tbody>
+</table>
+
+<!-- MODAL EMPRÉSTIMO -->
+<div class="modal" id="modalEmprestimo">
+  <div class="modal-content">
+    <h3>Novo Empréstimo</h3>
+
+    <input id="nomeCliente" placeholder="Nome do cliente">
+    <input id="telefoneCliente" placeholder="Telefone">
+    <input id="valor" type="number" placeholder="Valor emprestado" oninput="calcularTotal()">
+
+    <select id="tipoCobranca" onchange="atualizarModoCobranca()">
+      <option value="juros">Com juros (%)</option>
+      <option value="fixo">Valor fixo</option>
+    </select>
+
+    <input id="juros" type="number" placeholder="Juros (%)" oninput="calcularTotal()">
+    <input id="totalReceber" type="number" placeholder="Total a receber" oninput="calcularTotalFixo()">
+
+    <input id="vencimento" type="date">
+
+    <button onclick="salvarEmprestimo()">Salvar</button>
+    <button onclick="fecharModal()">Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL PAGAMENTO -->
+<div class="modal" id="modalPagamento">
+  <div class="modal-content">
+    <h3>Registrar Pagamento</h3>
+    <input id="valorPagamento" type="number" placeholder="Valor pago">
+    <button onclick="confirmarPagamento()">Salvar</button>
+    <button onclick="fecharModal()">Cancelar</button>
+  </div>
+</div>
+
+<script src="db.js"></script>
+<script src="sistema.js"></script>
+<script>iniciarBanco();</script>
+
+</body>
+</html>
