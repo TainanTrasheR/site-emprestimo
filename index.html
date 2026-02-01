@@ -9,15 +9,35 @@
 
 <h1>📊 Sistema de Empréstimos</h1>
 
-<!-- RESUMO FINANCEIRO -->
+<!-- RESUMO -->
 <div class="resumo">
-  <div class="card"><span>Total Emprestado</span><strong id="resumoEmprestado">R$ 0,00</strong></div>
-  <div class="card"><span>Total a Receber</span><strong id="resumoReceber">R$ 0,00</strong></div>
-  <div class="card"><span>Total Recebido</span><strong id="resumoRecebido">R$ 0,00</strong></div>
-  <div class="card lucro"><span>Lucro</span><strong id="resumoLucro">R$ 0,00</strong></div>
-  <div class="card atrasado"><span>Atrasados</span><strong id="resumoAtrasados">0</strong></div>
+  <div class="card">
+    <span>Total Emprestado</span>
+    <strong id="resumoEmprestado">R$ 0,00</strong>
+  </div>
+
+  <div class="card destaque">
+    <span>Total a Receber</span>
+    <strong id="resumoReceber">R$ 0,00</strong>
+  </div>
+
+  <div class="card">
+    <span>Total Recebido</span>
+    <strong id="resumoRecebido">R$ 0,00</strong>
+  </div>
+
+  <div class="card lucro">
+    <span>Lucro</span>
+    <strong id="resumoLucro">R$ 0,00</strong>
+  </div>
+
+  <div class="card atrasado">
+    <span>Atrasados</span>
+    <strong id="resumoAtrasados">0</strong>
+  </div>
 </div>
 
+<!-- TOPO -->
 <div class="topo">
   <button onclick="abrirModalEmprestimo()">➕ Novo Empréstimo</button>
   <button onclick="setFiltro('todos')">📋 Todos</button>
@@ -25,18 +45,29 @@
   <button onclick="setFiltro('emdia')">✅ Em dia</button>
 </div>
 
+<!-- FILTRO -->
+<div class="filtro-periodo">
+  <h3>📅 Recebimentos por período</h3>
+  <div class="linha">
+    <input type="date" id="filtroInicio">
+    <input type="date" id="filtroFim">
+    <button onclick="filtrarRecebimentos()">Buscar</button>
+    <button class="secundario" onclick="setFiltro('todos')">Limpar</button>
+  </div>
+</div>
+
+<!-- TABELA -->
 <table>
   <thead>
     <tr>
       <th>Cliente</th>
-      <th>Telefone</th>
       <th>Emprestado</th>
-      <th>Total a Receber</th>
+      <th>Total</th>
       <th>Recebido</th>
       <th>Lucro</th>
       <th>Vencimento</th>
       <th>Status</th>
-      <th>Ações</th>
+      <th class="col-acoes">Ações</th>
     </tr>
   </thead>
   <tbody id="tabelaEmprestimos"></tbody>
@@ -47,7 +78,7 @@
   <div class="modal-content">
     <h3>Novo Empréstimo</h3>
 
-    <input id="nomeCliente" placeholder="Nome do cliente">
+    <input id="nomeCliente" placeholder="Nome">
     <input id="telefoneCliente" placeholder="Telefone">
     <input id="valor" type="number" placeholder="Valor emprestado" oninput="calcularTotal()">
 
@@ -57,12 +88,24 @@
     </select>
 
     <input id="juros" type="number" placeholder="Juros (%)" oninput="calcularTotal()">
-    <input id="totalReceber" type="number" placeholder="Total a receber" oninput="calcularTotalFixo()">
+    <input id="totalReceber" type="number" placeholder="Total a receber">
 
-    <input id="vencimento" type="date">
+    <input id="qtdParcelas" type="number" min="1" value="1">
+    <input id="primeiroVencimento" type="date">
 
-    <button onclick="salvarEmprestimo()">Salvar</button>
-    <button onclick="fecharModal()">Cancelar</button>
+    <div class="acoes-modal">
+      <button onclick="salvarEmprestimo()">Salvar</button>
+      <button onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PARCELAS -->
+<div class="modal" id="modalParcelas">
+  <div class="modal-content">
+    <h3>Parcelas</h3>
+    <div id="listaParcelas"></div>
+    <button onclick="fecharModal()">Fechar</button>
   </div>
 </div>
 
@@ -70,9 +113,12 @@
 <div class="modal" id="modalPagamento">
   <div class="modal-content">
     <h3>Registrar Pagamento</h3>
-    <input id="valorPagamento" type="number" placeholder="Valor pago">
-    <button onclick="confirmarPagamento()">Salvar</button>
-    <button onclick="fecharModal()">Cancelar</button>
+    <input id="valorPagamento" type="number" step="0.01" placeholder="Valor pago">
+
+    <div class="acoes-modal">
+      <button onclick="confirmarPagamento()">Salvar</button>
+      <button onclick="fecharModal()">Cancelar</button>
+    </div>
   </div>
 </div>
 
